@@ -1,6 +1,11 @@
+<script setup>
+import { NButton, NH1, NAlert, NSpace } from "naive-ui";
+</script>
 <template>
   <div>
-    <h1>default layout</h1>
+    <organism-header />
+    <br />
     <slot />
+    <organism-footer />
   </div>
 </template>

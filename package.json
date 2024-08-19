@@ -10,12 +10,21 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@mdi/js": "^7.4.47",
+    "@nuxt/image": "^1.7.0",
+    "autoprefixer": "^10.4.19",
+    "mdi-vue": "^3.0.13",
     "naive-ui": "^2.38.2",
     "nuxt": "^3.12.3",
     "nuxtjs-naive-ui": "^1.0.2",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4",
     "unplugin-auto-import": "^0.18.0",
     "unplugin-vue-components": "^0.27.2",
     "vue": "latest"
   },
-  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
+  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903",
+  "devDependencies": {
+    "nuxt-mdi": "^1.1.6"
+  }
 }
