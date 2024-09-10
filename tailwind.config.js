@@ -24,7 +24,11 @@ export default {
         secondary: "#1cd93f",
         "primary-lighten": "#2260fc",
         "primary-darken": "#0804dc",
+        "primary-secondary-darken": "#081178",
         primary: "#2522fc",
+      },
+      backgroundImage: {
+        "custom-gradient": "linear-gradient(270deg, #0000FF 0%, #081178 100%)",
       },
     },
   },
