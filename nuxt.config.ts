@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     "nuxtjs-naive-ui",
     "@nuxt/image",
   ],
+  plugins: [{ src: "~/plugins/aos", mode: "client" }],
   css: ["~/assets/css/main.css"],
   vite: {
     ssr: { noExternal: ["mdi-vue"] },

@@ -12,7 +12,7 @@ const $openLink = (_url, _target = "_self") => {
 };
 </script>
 <template>
-  <footer class="">
+  <footer class="bg-primary-secondary-darken text-white">
     <atoms-container class="p-10">
       <div class="grid grid-flow-row md:grid-cols-8 gap-10">
         <div class="md:col-span-2">
@@ -148,7 +148,7 @@ const $openLink = (_url, _target = "_self") => {
               :key="idk"
               class="flex gap-2 items-center"
             >
-              <atoms-icon :size="15" :name="k.icon" class="dark:text-white" />
+              <atoms-icon :size="15" :name="k.icon" class="text-white" />
               <atoms-text span :href="k.href" style="white-space: pre-line">{{
                 k.text
               }}</atoms-text>
@@ -181,7 +181,7 @@ const $openLink = (_url, _target = "_self") => {
           <div
             class="flex gap-2 items-center mt-5 md:mt-0 justify-center md:justify-end"
           >
-            <atoms-icon name="copyright" />
+            <atoms-icon name="copyright" class="text-white" />
             <atoms-text span>2021 Hayokerja. All Rights Reserved</atoms-text>
           </div>
         </div>

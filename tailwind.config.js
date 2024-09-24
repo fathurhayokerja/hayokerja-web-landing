@@ -29,6 +29,16 @@ export default {
       },
       backgroundImage: {
         "custom-gradient": "linear-gradient(270deg, #0000FF 0%, #081178 100%)",
+        "primary-gradient": " linear-gradient(90deg, #081178 0%, #0F1FDE 100%)",
+      },
+      keyframes: {
+        bounce: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+      },
+      animation: {
+        bounce: "bounce 2s ease-in-out infinite",
       },
     },
   },

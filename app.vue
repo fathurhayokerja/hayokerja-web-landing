@@ -4,6 +4,8 @@ import {
   NConfigProvider,
   NGlobalStyle,
   NFloatButton,
+  NModalProvider,
+  NLoadingBarProvider,
 } from "naive-ui";
 import type { GlobalThemeOverrides } from "naive-ui";
 import resolveConfig from "tailwindcss/resolveConfig";
@@ -87,41 +89,55 @@ watch(
   () => $local.isDarkMode,
   () => {
     $toggleHtmlDarkMode();
-  }
+  },
 );
 
 onMounted($toggleHtmlDarkMode);
 </script>
 <template>
-  <!--  -->
   <n-config-provider
     :theme="$local.isDarkMode ? darkTheme : null"
     :theme-overrides="$themeOverrides($local.isDarkMode)"
   >
-    <n-global-style />
-    <n-float-button
-      position="fixed"
-      type="primary"
-      right="1.5rem"
-      bottom="1.5rem"
-      class="z-10 !text-white"
-      @click="$local.isDarkMode = !$local.isDarkMode"
-    >
-      <atoms-icon
-        :name="$local.isDarkMode ? 'weather-night' : 'white-balance-sunny'"
-        class="!text-white"
-        flat
-      />
-    </n-float-button>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <n-loading-bar-provider>
+      <n-modal-provider>
+        <n-global-style />
+        <n-float-button
+          position="fixed"
+          type="primary"
+          right="1.5rem"
+          bottom="1.5rem"
+          class="z-50 !text-white"
+          @click="$local.isDarkMode = !$local.isDarkMode"
+        >
+          <atoms-icon
+            :name="$local.isDarkMode ? 'weather-night' : 'white-balance-sunny'"
+            class="!text-white"
+            flat
+          />
+        </n-float-button>
+        <NuxtLayout>
+          <NuxtPage />
+        </NuxtLayout>
+      </n-modal-provider>
+    </n-loading-bar-provider>
   </n-config-provider>
 </template>
+
 <style lang="css">
 body {
-  font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+  font-family:
+    "Plus Jakarta Sans",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
     sans-serif !important;
 }
 </style>
