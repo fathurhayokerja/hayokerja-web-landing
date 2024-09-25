@@ -6,7 +6,7 @@ import useBreakpoint from "@/composable/useBreakpoint.ts";
 const items = ref([
   {
     number: 1,
-    bgColor: "bg-secondary-darken",
+    bgColor: "bg-secondary-darken hover:bg-secondary",
     imgSrc: "/images/pekerja/register.svg",
     title: "Daftar",
     modalContent: "Cari pekerja atau pekerjaan lebih mudah & efektif.",
@@ -18,7 +18,7 @@ const items = ref([
   },
   {
     number: 2,
-    bgColor: "bg-primary-darken",
+    bgColor: "bg-primary-darken hover:bg-primary",
     imgSrc: "/images/pekerja/interview-1.svg",
     title: "Wawancara",
     modalContent:
@@ -31,7 +31,7 @@ const items = ref([
   },
   {
     number: 3,
-    bgColor: "bg-primary-darken",
+    bgColor: "bg-primary-darken hover:bg-primary",
     imgSrc: "/images/pekerja/check-1.svg",
     title: "Psikotes",
     modalContent:
@@ -44,7 +44,7 @@ const items = ref([
   },
   {
     number: 4,
-    bgColor: "bg-primary-darken",
+    bgColor: "bg-primary-darken hover:bg-primary",
     imgSrc: "/images/pekerja/meditation-1.svg",
     title: "Diterima",
     modalContent:
@@ -57,7 +57,7 @@ const items = ref([
   },
   {
     number: 5,
-    bgColor: "bg-primary-darken",
+    bgColor: "bg-primary-darken hover:bg-primary",
     imgSrc: "/images/pekerja/works-1.svg",
     title: "Bekerja",
     modalContent:
@@ -107,7 +107,7 @@ const closeModal = () => {
         <div
           @click="openModal(item)"
           :class="[
-            'w-full rounded-xl p-4 mt-8 space-y-24 flex flex-col items-center justify-center relative',
+            'w-full rounded-xl p-4 mt-8 space-y-24 flex flex-col items-center justify-center relative cursor-pointer',
             item.bgColor,
           ]"
         >
@@ -120,7 +120,7 @@ const closeModal = () => {
             height="188"
             class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           />
-          <h2 class="text-2xl font-bold text-white cursor-pointer">
+          <h2 class="text-2xl font-bold text-white">
             {{ item.title }}
           </h2>
         </div>
