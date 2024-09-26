@@ -28,6 +28,11 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  runtimeConfig: {
+    public: {
+      dbUrl: process.env.DATABASE_URL,
+    },
+  },
   app: {
     head: {
       lang: "en",

@@ -6,6 +6,7 @@ import {
   NFloatButton,
   NModalProvider,
   NLoadingBarProvider,
+  NMessageProvider,
 } from "naive-ui";
 import type { GlobalThemeOverrides } from "naive-ui";
 import resolveConfig from "tailwindcss/resolveConfig";
@@ -101,24 +102,28 @@ onMounted($toggleHtmlDarkMode);
   >
     <n-loading-bar-provider>
       <n-modal-provider>
-        <n-global-style />
-        <n-float-button
-          position="fixed"
-          type="primary"
-          right="1.5rem"
-          bottom="1.5rem"
-          class="z-50 !text-white"
-          @click="$local.isDarkMode = !$local.isDarkMode"
-        >
-          <atoms-icon
-            :name="$local.isDarkMode ? 'weather-night' : 'white-balance-sunny'"
-            class="!text-white"
-            flat
-          />
-        </n-float-button>
-        <NuxtLayout>
-          <NuxtPage />
-        </NuxtLayout>
+        <n-message-provider>
+          <n-global-style />
+          <n-float-button
+            position="fixed"
+            type="primary"
+            right="1.5rem"
+            bottom="1.5rem"
+            class="z-50 !text-white"
+            @click="$local.isDarkMode = !$local.isDarkMode"
+          >
+            <atoms-icon
+              :name="
+                $local.isDarkMode ? 'weather-night' : 'white-balance-sunny'
+              "
+              class="!text-white"
+              flat
+            />
+          </n-float-button>
+          <NuxtLayout>
+            <NuxtPage />
+          </NuxtLayout>
+        </n-message-provider>
       </n-modal-provider>
     </n-loading-bar-provider>
   </n-config-provider>

@@ -1,107 +1,239 @@
 <script setup>
 import {
-  NButton,
+  NPagination,
+  useLoadingBar,
   NCard,
-  NCarousel,
+  NButton,
   NDivider,
-  NTimeline,
-  NTimelineItem,
+  NTag,
+  NCheckbox,
+  NCheckboxGroup,
+  NSkeleton,
+  useMessage,
 } from "naive-ui";
-
-import { reactive } from "vue";
 
 import moment from "moment/min/moment-with-locales";
 moment.locale("id");
+import useBreakpoint from "~/composable/useBreakpoint.ts";
+
+const $title = ref("Berita");
+const $description = ref(
+  "Baca artikel dan berita terbaru serta menarik kami terkait dengan informasi seputar pekerjaan dan perusahaan",
+);
+const $image = ref("https://www.hayokerja.com/logo.png");
 
 definePageMeta({
-  label: "Berita",
   order: 4,
-  class: "!ring-0 !bg-opacity-0 !bg-transparent",
+  forceFloating: true,
+  headerClass: "fixed bg-transparent top-0 !text-white",
+  label: "Berita",
+  title: "Berita",
 });
 
-const local = reactive({
-  data: null,
+useSeoMeta({
+  title: () => $title.value,
+  description: () => $description.value,
+  ogTitle: () => $title.value,
+  ogDescription: () => $description.value,
+  ogImage: () => $image.value,
+  ogImageAlt: () => $title.value,
+  ogImageSecureUrl: () => $image.value,
+  ogImageUrl: () => $image.value,
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: () => $title.value,
+  twitterDescription: () => $description.value,
+  twitterImage: () => $image.value,
+  twitterImageAlt: () => $title.value,
+  robots: "index, follow",
 });
 
-const { data, status, error, refresh, clear } = await useAsyncData(
-  "article",
-  async () => {
-    const response = await $fetch(`${process.env.DATABASE_URL}/Articles/get`, {
+const { $addSeparator, $citiesType, $provincesType } = useNuxtApp();
+const config = useRuntimeConfig();
+const router = useRouter();
+const $message = useMessage();
+const $loadingBar = useLoadingBar();
+const $breakpoint = useBreakpoint();
+const $local = reactive({
+  tags: null,
+  selectedTag: null,
+  selectedTags: null,
+  openTagAdder: false,
+  isSortAscending: true,
+  salarymin: null,
+  salarymax: null,
+  openFilter: true,
+  term: null,
+  province: null,
+  city: null,
+
+  restResp: null,
+  mainLoading: false,
+  itemsLoading: false,
+  defaultPipeline: [
+    {
+      $lookup: {
+        from: "Users",
+        let: { authorId: "$authorId" },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $eq: ["$_id", "$$authorId"],
+              },
+            },
+          },
+          {
+            $lookup: {
+              from: "Workers",
+              localField: "email",
+              foreignField: "email",
+              as: "worker",
+            },
+          },
+          {
+            $unwind: {
+              path: "$worker",
+              preserveNullAndEmptyArrays: true,
+            },
+          },
+
+          {
+            $project: {
+              picture: 1,
+              nickname: {
+                $ifNull: ["$nickname", "$worker.fullName", "Admin"],
+              },
+            },
+          },
+        ],
+        as: "user",
+      },
+    },
+    {
+      $unwind: {
+        path: "$user",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $addFields: {
+        avatar: "$user.picture",
+      },
+    },
+  ],
+});
+
+const $openLink = (_url, _target = "_self") => {
+  if (_url) {
+    window.open(_url, _target);
+  }
+};
+
+const $page = ref(1);
+const $newPage = ref(1);
+
+const $getHeadlinePayload = computed(() => ({
+  pipeline: [
+    {
+      $sort: {
+        _publishedDate: -1,
+      },
+    },
+    {
+      $match: {
+        status: "Published",
+      },
+    },
+    ...$local.defaultPipeline,
+  ],
+}));
+
+const {
+  data: $headlineResp,
+  pending: $headlinePending,
+  refresh: $headlineRefresh,
+} = await useAsyncData(
+  "headline-article",
+  async () =>
+    $fetch(`${useRuntimeConfig().public.dbUrl}/Articles/get`, {
       params: {
         jsonQuery: JSON.stringify({
-          pipeline: [
-            {
-              $lookup: {
-                from: "Users",
-                let: { authorId: "$authorId" },
-                pipeline: [
-                  {
-                    $match: {
-                      $expr: {
-                        $eq: ["$_id", "$$authorId"],
-                      },
-                    },
-                  },
-                  {
-                    $lookup: {
-                      from: "Workers",
-                      localField: "email",
-                      foreignField: "email",
-                      as: "worker",
-                    },
-                  },
-                  {
-                    $unwind: {
-                      path: "$worker",
-                      preserveNullAndEmptyArrays: true,
-                    },
-                  },
-
-                  {
-                    $project: {
-                      picture: 1,
-                      nickname: {
-                        $ifNull: ["$nickname", "$worker.fullName", "Admin"],
-                      },
-                    },
-                  },
-                ],
-                as: "user",
-              },
-            },
-            {
-              $unwind: {
-                path: "$user",
-                preserveNullAndEmptyArrays: true,
-              },
-            },
-            {
-              $addFields: {
-                avatar: "$user.picture",
-              },
-            },
-            {
-              $match: {
-                status: "Published",
-              },
-            },
-            {
-              $sort: {
-                _publishedDate: -1,
-              },
-            },
-          ],
+          ...$getHeadlinePayload.value,
         }),
-        limit: 6,
+        page: $page.value || 1,
+        limit: 1,
       },
-    });
-    return response;
+    }),
+  {
+    watch: [$page],
   },
 );
 
-local.data = data.value?.result;
+const $onFetchRestArticle = async () => {
+  $loadingBar.start();
+  $local.itemsLoading = true;
+  try {
+    const _resp = await fetch(
+      `${useRuntimeConfig().public.dbUrl}/Articles/get?` +
+        new URLSearchParams({
+          jsonQuery: JSON.stringify({
+            pipeline: [
+              {
+                $sort: {
+                  _publishedDate: -1,
+                },
+              },
+              {
+                $match: {
+                  status: "Published",
+                },
+              },
+              ...$local.defaultPipeline,
+            ],
+          }),
+          page: $newPage.value || 1,
+          limit: 6,
+        }),
+    );
 
-console.log("data", local.data);
+    const _jsonResp = await _resp.json();
+
+    console.log("res", _jsonResp);
+
+    if ($local.restResp?.result?.length > 0) {
+      $local.restResp = {
+        ...$local.restResp,
+        ..._jsonResp,
+        result: [...$local.restResp.result, ..._jsonResp.result],
+      };
+    } else {
+      $local.restResp = _jsonResp;
+    }
+  } catch (error) {
+  } finally {
+    $local.itemsLoading = false;
+    $loadingBar.finish();
+  }
+};
+
+watch(
+  () => $headlinePending.value,
+  () => {
+    if (!!$headlinePending.value) {
+      $local.mainLoading = true;
+      $loadingBar.start();
+      return;
+    }
+    $local.mainLoading = false;
+    $loadingBar.finish();
+    window.scrollTo({ top: 0 });
+  },
+);
+
+onMounted(async () => {
+  await $onFetchRestArticle();
+});
 </script>
 
 <template>
@@ -110,12 +242,9 @@ console.log("data", local.data);
       <atoms-container>
         <div class="grid grid-cols-1 md:grid-cols-2">
           <div class="space-y-5 p-10 order-2 md:order-none">
-            <p
-              class="text-[#081178] font-extrabold text-[43px] leading-[65px] dark:text-white"
-            >
-              Kumpulan Berita/Artikel <br />
-              Terbaru
-            </p>
+            <atoms-heading type="h1">
+              Kumpulan Berita/Artikel Terbaru
+            </atoms-heading>
 
             <p class="lg:max-w-[80%]">
               Pasion kerja itu penting loh! Bayangkan ketika kalian memulai
@@ -147,12 +276,12 @@ console.log("data", local.data);
     </section>
 
     <section id="vacancy-list">
-      <atoms-container>
+      <atoms-container v-if="$local.restResp?.result?.length > 0">
         <n-card class="text-center bg-primary text-white mt-24 md:mt-64">
           <p class="text-xl md:text-2xl">Kumpulan Berita/Artikel Terbaru</p>
         </n-card>
 
-        <div v-for="article in local.data" :key="article._id">
+        <div v-for="article in $local.restResp?.result" :key="article._id">
           <n-card class="my-10 shadow-lg">
             <div class="flex flex-col md:flex-row gap-10">
               <atoms-image
@@ -197,7 +326,17 @@ console.log("data", local.data);
           </n-card>
         </div>
 
-        <n-button type="default" class="w-full p-6 mb-8">
+        <n-button
+          :disabled="$local.restResp?.result?.length < 5 || $local.itemsLoading"
+          @click="
+            () => {
+              $newPage = $newPage + 1;
+              $onFetchRestArticle();
+            }
+          "
+          type="default"
+          class="w-full p-6 mb-8"
+        >
           <nuxt-img
             src="/images/arrow-down.svg"
             width="15"
