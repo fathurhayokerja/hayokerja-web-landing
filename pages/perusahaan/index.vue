@@ -526,30 +526,7 @@ const getCellClass = (key) => {
           Hayokerja telah dipercaya di berbagai Perusahaan
         </atoms-heading>
 
-        <Carousel
-          :items-to-show="breakpoints.smAndDown ? 1.5 : 2.5"
-          :wrap-around="true"
-        >
-          <Slide v-for="(item, index) in client" :key="index">
-            <n-card
-              class="carousel__item shadow-xl w-full rounded-3xl my-5 overflow-hidden"
-            >
-              <atoms-container class="p-4">
-                <ClientOnly>
-                  <nuxt-img
-                    :src="item?.image"
-                    alt="Image"
-                    :class="item.class"
-                  />
-                </ClientOnly>
-              </atoms-container>
-            </n-card>
-          </Slide>
-
-          <template #addons>
-            <Navigation class="text-white" />
-          </template>
-        </Carousel>
+        <organism-client-list />
       </atoms-container>
     </section>
 
