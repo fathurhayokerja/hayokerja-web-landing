@@ -59,9 +59,7 @@ watch(pending, () => {
       <atoms-container>
         <div class="grid grid-cols-1 md:grid-cols-2">
           <div class="flex items-center justify-center order-2 md:order-none">
-            <p class="title-hero text-[#081178] font-extrabold dark:text-white">
-              FAQ
-            </p>
+            <p class="title-hero font-extrabold">FAQ</p>
           </div>
 
           <div class="relative z-20">

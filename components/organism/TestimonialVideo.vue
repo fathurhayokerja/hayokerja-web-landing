@@ -1,11 +1,6 @@
 <script setup>
 import "vue3-carousel/dist/carousel.css";
-import {
-  Carousel,
-  Slide,
-  Pagination,
-  Navigation,
-} from "vue3-carousel/dist/carousel.es.js";
+import { Carousel, Slide, Navigation } from "vue3-carousel/dist/carousel.es.js";
 import {
   Player,
   Youtube,
@@ -14,13 +9,14 @@ import {
   ClickToPlay as VimeClickToPlay,
   Spinner as VimeSpinner,
 } from "@vime/vue-next";
-import useBreakpoint from "@/composable/useBreakpoint.ts";
+import useBreakpoint from "~/composable/useBreakpoint.ts";
+import { NDivider } from "naive-ui";
 
+const $breakpoint = useBreakpoint();
 const local = reactive({
   loading: false,
   result: null,
 });
-const $breakpoint = useBreakpoint();
 
 const $page = ref(null);
 
@@ -31,34 +27,41 @@ const {
 } = await useAsyncData(
   "testimonial",
   async () =>
-    $fetch(`${process.env.DATABASE_URL}/Testimonials/get`, {
+    $fetch(`${useRuntimeConfig().public.dbUrl}/Testimonials/get`, {
       params: {},
     }),
   {
     watch: [$page],
   },
 );
-
-local.result = $resp.value?.result;
 </script>
 <template>
-  <atoms-container class="py-8">
+  <atoms-container class="py-8 mb-10 md:mb-20">
+    <atoms-heading type="h2" class="text-center">
+      Apa yang mereka katakan tentang kami?
+    </atoms-heading>
+
+    <div class="flex items-center justify-center mb-8">
+      <n-divider class="w-1/2" />
+    </div>
+
     <div
-      v-if="$pending || !local.result"
+      v-if="$pending || !$resp?.result"
       class="w-full bg-white-smoke h-[300px] animate-pulse"
     ></div>
+
     <Carousel
       v-else
       :itemsToShow="$breakpoint.smAndDown ? 1.2 : 2.5"
       :wrap-around="true"
     >
-      <Slide v-for="(item, i) in local.result" :key="i">
+      <Slide v-for="(item, i) in $resp?.result" :key="i">
         <div
-          class="carousel__item shadow-xl bg-white w-full rounded-3xl my-5 overflow-hidden"
+          class="carousel__item shadow-xl bg-white dark:bg-pure-black w-full rounded-3xl my-5 overflow-hidden"
         >
           <atoms-container
             v-if="item?.caption?.includes('www.youtube.com')"
-            class="lg:h-auto lg:w-full p-10"
+            class="lg:h-auto lg:w-full p-6"
           >
             <ClientOnly>
               <Player controls>
@@ -72,9 +75,13 @@ local.result = $resp.value?.result;
             </ClientOnly>
           </atoms-container>
           <div class="text-left">
-            <p v-if="item?.title" class="p-5 dark:text-black">
+            <atoms-heading
+              type="h5"
+              v-if="item?.title"
+              class="p-5 dark:text-black"
+            >
               {{ item.title }}
-            </p>
+            </atoms-heading>
           </div>
         </div>
       </Slide>
@@ -86,32 +93,25 @@ local.result = $resp.value?.result;
 </template>
 
 <style scoped>
-/* .carousel__item {
-  min-height: 200px;
-  width: 100%;
-  background-color: var(--vc-clr-primary);
-  color: var(--vc-clr-white);
-  font-size: 20px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 .carousel__slide > .carousel__item {
   transform: scale(1);
   opacity: 0.5;
   transition: 0.5s;
 }
+
 .carousel__slide--visible > .carousel__item {
   opacity: 1;
   transform: rotateY(0);
 }
+
 .carousel__slide--next > .carousel__item {
   transform: scale(0.9) translate(-10px);
 }
+
 .carousel__slide--prev > .carousel__item {
   transform: scale(0.9) translate(10px);
 }
+
 .carousel__slide--active > .carousel__item {
   transform: scale(1.1);
 }

@@ -61,7 +61,6 @@ const items = ref([
     title: "Bekerja",
   },
 ]);
-const showModal = ref(false);
 
 function removeHTMLEntities(text) {
   if (typeof document !== "undefined") {
@@ -433,14 +432,6 @@ definePageMeta({
     </section>
 
     <section id="testimonials" class="mt-10">
-      <atoms-container>
-        <atoms-heading type="h2" class="text-center">
-          Apa yang mereka katakan tentang kami?
-        </atoms-heading>
-
-        <n-divider />
-      </atoms-container>
-
       <organism-testimonial-video />
     </section>
 
