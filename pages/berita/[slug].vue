@@ -104,10 +104,10 @@ local.data = data.value?.result;
           <n-card
             class="w-full md:w-[70%] bg-primary md:rounded-tr-none md:rounded-br-none"
           >
-            <p class="font-bold text-lg md:text-[30px] mb-6 text-white">
+            <atoms-heading type="h4" class="text-white">
               {{ local.data?.title }}
-            </p>
-            <p class="font-light text-white">
+            </atoms-heading>
+            <p class="font-light text-white mt-6">
               Dilihat {{ local.data?.viewCount }}
             </p>
           </n-card>
@@ -139,9 +139,9 @@ local.data = data.value?.result;
                 />
               </svg>
 
-              <p class="font-light text-lg md:text-[28px] text-white">
+              <atoms-heading type="h5" class="text-white mb-3">
                 {{ moment(local.data?._publishedDate).format("DD MMMM YYYY") }}
-              </p>
+              </atoms-heading>
             </div>
 
             <div class="flex items-center justify-end">
@@ -153,9 +153,9 @@ local.data = data.value?.result;
               />
             </div>
 
-            <p class="text-right mt-2 font-bold text-lg md:text-[28px]">
+            <atoms-heading type="h5" class="text-right text-white mt-3">
               Diposting Oleh Admin
-            </p>
+            </atoms-heading>
           </n-card>
         </div>
 
