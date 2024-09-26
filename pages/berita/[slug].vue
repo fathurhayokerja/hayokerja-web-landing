@@ -85,8 +85,6 @@ const { data } = await useAsyncData("lowongan", async () => {
 });
 
 local.data = data.value?.result;
-
-console.log("data", local.data);
 </script>
 
 <template>

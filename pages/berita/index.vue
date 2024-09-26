@@ -199,8 +199,6 @@ const $onFetchRestArticle = async () => {
 
     const _jsonResp = await _resp.json();
 
-    console.log("res", _jsonResp);
-
     if ($local.restResp?.result?.length > 0) {
       $local.restResp = {
         ...$local.restResp,
