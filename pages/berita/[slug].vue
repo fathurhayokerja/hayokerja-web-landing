@@ -1,12 +1,5 @@
 <script setup>
-import {
-  NButton,
-  NCard,
-  NCarousel,
-  NDivider,
-  NTimeline,
-  NTimelineItem,
-} from "naive-ui";
+import { NButton, NCard } from "naive-ui";
 
 import { reactive } from "vue";
 
@@ -17,6 +10,7 @@ const local = reactive({
   data: null,
 });
 const route = useRoute();
+const router = useRouter();
 
 const { data } = await useAsyncData("lowongan", async () => {
   const response = await $fetch(
@@ -91,16 +85,24 @@ local.data = data.value?.result;
   <div>
     <section id="image" class="relative z-20">
       <atoms-container>
-        <div class="flex justify-center">
-          <nuxt-img
-            preload
-            loading="lazy"
-            class="w-full h-[600px] mt-6 rounded-2xl"
-            :src="local.data?.picture"
-          />
+        <nuxt-img
+          v-if="local.data?.picture"
+          preload
+          loading="lazy"
+          class="w-full h-full md:h-[600px] mt-6 rounded-2xl"
+          :src="local.data.picture"
+        />
+
+        <div
+          v-else
+          class="w-full bg-gray-800 h-[300px] md:h-[600px] mt-6 rounded-2xl flex justify-center items-center"
+        >
+          <atoms-icon size="50" name="image-off" class="text-white" />
         </div>
 
-        <div class="flex flex-col md:flex-row mt-24 space-y-4 md:space-y-0">
+        <div
+          class="flex flex-col md:flex-row mt-12 md:mt-18 space-y-4 md:space-y-0"
+        >
           <n-card
             class="w-full md:w-[70%] bg-primary md:rounded-tr-none md:rounded-br-none"
           >
@@ -159,12 +161,18 @@ local.data = data.value?.result;
           </n-card>
         </div>
 
-        <n-card class="mt-16">
+        <n-card class="mt-12">
           <article class="text-lg" v-html="local.data?.content" />
         </n-card>
 
         <div class="flex items-center justify-center my-10">
-          <n-button type="success">Kembali</n-button>
+          <n-button
+            @click="router.push({ path: '/berita' })"
+            class="w-full"
+            type="success"
+          >
+            Kembali
+          </n-button>
         </div>
       </atoms-container>
     </section>
