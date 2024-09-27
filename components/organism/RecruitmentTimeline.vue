@@ -94,6 +94,8 @@ const closeModal = () => {
         v-for="(item, index) in items"
         :key="index"
         class="flex flex-col items-center space-y-32"
+        :data-aos="'fade-up'"
+        :data-aos-delay="index * 100"
       >
         <div
           :class="[

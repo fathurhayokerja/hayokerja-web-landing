@@ -1,18 +1,12 @@
 <script setup>
-import { NButton, NCard, NDivider } from "naive-ui";
+import { NButton, NDivider } from "naive-ui";
 import { Player, Youtube } from "@vime/vue-next";
-import { Carousel, Slide, Navigation } from "vue3-carousel/dist/carousel.es.js";
-import "vue3-carousel/dist/carousel.css";
-
-import useBreakpoint from "@/composable/useBreakpoint.ts";
 
 definePageMeta({
   label: "Tentang Kami",
   order: 3,
   class: "!ring-0 !bg-opacity-0 !bg-transparent",
 });
-
-const breakpoint = useBreakpoint();
 
 const mission = [
   {
@@ -35,69 +29,6 @@ const mission = [
   },
   {
     list: "Go Internasional",
-  },
-];
-
-const client = [
-  {
-    image: "/images/client/logo-deli.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/Fresh-Factory.png",
-    class: "mx-auto h-[200px] ",
-  },
-  {
-    image: "/images/client/akulaku.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/logee.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/telkom-property.jpg",
-    class: "mx-auto h-[200px]",
-  },
-  {
-    image: "/images/client/sharp.svg",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/bintangmahameru.jpeg",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/kongfook.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/xiangshan.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/astro.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/menarakreatif.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/jnt.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/egogo.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/gudings.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/amaris.png",
-    class: "mx-auto",
   },
 ];
 </script>

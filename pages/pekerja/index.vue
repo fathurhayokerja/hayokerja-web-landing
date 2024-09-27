@@ -1,21 +1,15 @@
 <script setup>
-import {
-  NButton,
-  NModal,
-  NCard,
-  NCarousel,
-  NTimeline,
-  NTimelineItem,
-  NCarouselItem,
-  NIcon,
-  useMessage,
-  NDivider,
-  NSpin,
-} from "naive-ui";
-import { ref, watch, computed, onMounted, reactive } from "vue";
+import { NButton, NCard, NDivider } from "naive-ui";
+import { ref, reactive } from "vue";
 
 import moment from "moment/min/moment-with-locales";
 moment.locale("id");
+
+definePageMeta({
+  order: 2,
+  label: "Pekerja",
+  class: "!ring-0 !bg-opacity-0 !bg-transparent",
+});
 
 const local = reactive({
   term: "",
@@ -105,12 +99,6 @@ const { data, status, error, refresh, clear } = await useAsyncData(
 );
 
 local.result = data.value?.result;
-
-definePageMeta({
-  order: 2,
-  label: "Pekerja",
-  class: "!ring-0 !bg-opacity-0 !bg-transparent",
-});
 </script>
 <template>
   <div>
@@ -331,8 +319,10 @@ definePageMeta({
         >
           <n-card
             class="rounded-lg shadow-lg"
-            v-for="vacancylist in local.result"
+            v-for="(vacancylist, index) in local.result"
             :key="vacancylist._id"
+            :data-aos="'fade-up'"
+            :data-aos-delay="index * 100"
           >
             <div class="flex items-center gap-4">
               <nuxt-img

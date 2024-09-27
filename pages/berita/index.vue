@@ -1,20 +1,8 @@
 <script setup>
-import {
-  NPagination,
-  useLoadingBar,
-  NCard,
-  NButton,
-  NDivider,
-  NTag,
-  NCheckbox,
-  NCheckboxGroup,
-  NSkeleton,
-  useMessage,
-} from "naive-ui";
+import { useLoadingBar, NCard, NButton, useMessage } from "naive-ui";
 
 import moment from "moment/min/moment-with-locales";
 moment.locale("id");
-import useBreakpoint from "~/composable/useBreakpoint.ts";
 
 const $title = ref("Berita");
 const $description = ref(
@@ -48,20 +36,14 @@ useSeoMeta({
   robots: "index, follow",
 });
 
-const { $addSeparator, $citiesType, $provincesType } = useNuxtApp();
-const config = useRuntimeConfig();
-const router = useRouter();
-const $message = useMessage();
 const $loadingBar = useLoadingBar();
-const $breakpoint = useBreakpoint();
 const $local = reactive({
   tags: null,
   selectedTag: null,
   selectedTags: null,
   openTagAdder: false,
   isSortAscending: true,
-  salarymin: null,
-  salarymax: null,
+
   openFilter: true,
   term: null,
   province: null,
@@ -123,12 +105,6 @@ const $local = reactive({
     },
   ],
 });
-
-const $openLink = (_url, _target = "_self") => {
-  if (_url) {
-    window.open(_url, _target);
-  }
-};
 
 const $page = ref(1);
 const $newPage = ref(1);
@@ -279,7 +255,10 @@ onMounted(async () => {
           <p class="text-xl md:text-2xl">Kumpulan Berita/Artikel Terbaru</p>
         </n-card>
 
-        <div v-for="article in $local.restResp?.result" :key="article._id">
+        <div
+          v-for="(article, index) in $local.restResp?.result"
+          :key="article._id"
+        >
           <n-card class="my-10 shadow-lg">
             <div class="flex flex-col md:flex-row gap-10">
               <atoms-image

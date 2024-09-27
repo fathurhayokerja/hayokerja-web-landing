@@ -1,6 +1,5 @@
 <script setup>
 import { NButton, NCard, NDivider } from "naive-ui";
-
 import {
   Player,
   Youtube,
@@ -9,8 +8,10 @@ import {
   ClickToPlay as VimeClickToPlay,
   Spinner as VimeSpinner,
 } from "@vime/vue-next";
-
 import { reactive } from "vue";
+
+import clientType from "~/constant/client.type.js";
+import industryType from "~/constant/industry.type.js";
 
 const $seo = ref({
   title: "Agensi Tenaga Kerja",
@@ -46,147 +47,6 @@ useServerSeoMeta({
 const $local = reactive({
   mainLoading: true,
 });
-
-const industry = [
-  {
-    name: "Kebersihan",
-    icon: "/images/icon/cleaner.png",
-    jobs: [
-      "Cleaning Service",
-      "Office Boy / Office Girl",
-      "Gardener",
-      "Sky Service",
-      "Housekeeping",
-    ],
-  },
-  {
-    name: "Penjualan & Pelayanan",
-    icon: "/images/icon/seller.png",
-    jobs: [
-      "Sales",
-      "Customer Service",
-      "Retail Assistant",
-      "Cashier",
-      "Store Manager",
-    ],
-  },
-  {
-    name: "Manufaktur",
-    icon: "/images/icon/manufactur.png",
-    jobs: [
-      "Security",
-      "Pekerja Lepas",
-      " Operator Produksi",
-      "Teknisi",
-      "Helper Produksi",
-    ],
-  },
-  {
-    name: "Dapur & Pantri",
-    icon: "/images/icon/kitchen.png",
-    jobs: ["Chef", "Cook Helper", "Kitchen Crew", "Head Chef", "dll."],
-  },
-  {
-    name: "Konstruksi & Bangunan",
-    icon: "/images/icon/construction.png",
-    jobs: [
-      "Surveyor",
-      "Pekerja Konstruksi",
-      "Tenaga Ahli",
-      "Estimator",
-      "dll.",
-    ],
-  },
-  {
-    name: "Hotel & Restoran",
-    icon: "/images/icon/hotel-restaurant.png",
-    jobs: [
-      "Waiter / Waiters",
-      "Front Office",
-      "Resepsionis",
-      "Porter",
-      "Room Service",
-    ],
-  },
-  {
-    name: "Logistik",
-    icon: "/images/icon/logistic.png",
-    jobs: ["Kurir", "Delivery", "Driver", "Kurir Event", "Kurir Harian"],
-  },
-  {
-    name: "Dapur & Pantri",
-    icon: "/images/icon/warehouse.png",
-    jobs: [
-      "Staff Gudang",
-      "Operator Warehouse",
-      "Admin Gudang",
-      "Kepala Gudang",
-      "Packer",
-    ],
-  },
-];
-
-const client = [
-  {
-    image: "/images/client/logo-deli.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/Fresh-Factory.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/akulaku.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/logee.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/telkom-property.jpg",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/sharp.svg",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/bintangmahameru.jpeg",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/kongfook.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/xiangshan.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/astro.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/menarakreatif.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/jnt.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/egogo.png",
-  },
-  {
-    image: "/images/client/gudings.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/amaris.png",
-    class: "mx-auto",
-  },
-];
 
 onMounted(() => {
   $local.mainLoading = false;
@@ -601,12 +461,7 @@ onMounted(() => {
       </div>
     </section>
 
-    <section
-      data-aos="fade-up"
-      data-aos-duration="1000"
-      id="work-industry"
-      class="border-b-2 dark:border-b-gray-700"
-    >
+    <section id="work-industry" class="border-b-2 dark:border-b-gray-700">
       <atoms-container class="p-10">
         <p class="font-extrabold text-[40px] text-center">
           Industri dan Pekerjaan yang kami salurkan
@@ -618,8 +473,10 @@ onMounted(() => {
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-10 gap-4"
         >
           <n-card
-            v-for="industries in industry"
+            v-for="(industries, index) in industryType"
             :key="industries.name"
+            :data-aos="'fade-up'"
+            :data-aos-delay="index * 100"
             class="hover:shadow-2xl"
           >
             <div>
@@ -639,7 +496,7 @@ onMounted(() => {
     </section>
 
     <section id="client">
-      <atoms-container data-aos="fade-up" data-aos-duration="1000" class="p-10">
+      <atoms-container class="p-10">
         <p class="font-extrabold text-[40px] text-center">Klien</p>
 
         <p class="text-center">
@@ -648,9 +505,11 @@ onMounted(() => {
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-6">
           <n-card
-            v-for="(clients, index) in client"
+            v-for="(clients, index) in clientType"
             class="flex flex-row items-center justify-center shadow-md hover:shadow-2xl"
             :key="index"
+            :data-aos="'fade-up'"
+            :data-aos-delay="index * 100"
           >
             <nuxt-img
               preload
@@ -686,96 +545,3 @@ onMounted(() => {
     </section>
   </div>
 </template>
-
-<style scoped>
-.carousel-img {
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.stats-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1rem;
-  margin: 10rem auto;
-  position: relative;
-  z-index: 50;
-}
-
-.stats-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  background-color: white;
-}
-
-.image-wrapper {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-.company-image {
-  top: -5rem;
-  left: -2rem;
-}
-
-.partnership-image {
-  top: -4rem;
-  left: -2.5rem;
-}
-
-.content {
-  text-align: center;
-}
-
-.title {
-  font-size: 1.875rem;
-  font-weight: 700;
-  color: #1a202c;
-  margin-bottom: 1rem;
-}
-
-.description {
-  color: #4a5568;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-@media (min-width: 768px) {
-  .stats-card {
-    flex-direction: row;
-    text-align: left;
-    align-items: flex-start;
-  }
-
-  .image-wrapper {
-    flex-shrink: 0;
-    margin-right: 1.5rem;
-    margin-bottom: 0;
-  }
-
-  .content {
-    text-align: left;
-  }
-}
-
-@media (min-width: 1024px) {
-  .stats-container {
-    flex-wrap: nowrap;
-  }
-
-  .stats-card {
-    width: calc(50% - 1rem);
-  }
-}
-</style>

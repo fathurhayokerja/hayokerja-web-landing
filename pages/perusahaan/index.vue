@@ -1,19 +1,8 @@
 <script setup>
 import { NButton, NCard, NDivider } from "naive-ui";
 
-import { Carousel, Slide, Navigation } from "vue3-carousel/dist/carousel.es.js";
-import "vue3-carousel/dist/carousel.css";
-
 import useBreakpoint from "@/composable/useBreakpoint.ts";
-
-defineComponent({
-  name: "WrapAround",
-  components: {
-    Carousel,
-    Slide,
-    Navigation,
-  },
-});
+import benefitsType from "~/constant/benefits.type.js";
 
 definePageMeta({
   order: 1,
@@ -23,145 +12,7 @@ definePageMeta({
 
 const breakpoints = useBreakpoint();
 
-const client = [
-  {
-    image: "/images/client/logo-deli.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/Fresh-Factory.png",
-    class: "mx-auto h-[200px] ",
-  },
-  {
-    image: "/images/client/akulaku.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/logee.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/telkom-property.jpg",
-    class: "mx-auto h-[200px]",
-  },
-  {
-    image: "/images/client/sharp.svg",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/bintangmahameru.jpeg",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/kongfook.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/xiangshan.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/astro.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/menarakreatif.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/jnt.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/egogo.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/gudings.png",
-    class: "mx-auto",
-  },
-  {
-    image: "/images/client/amaris.png",
-    class: "mx-auto",
-  },
-];
-
 const headers = ["In House", "Outsourcing", "Kemitraan"];
-
-const benefits = [
-  {
-    name: "Gaji Pokok",
-    icon: "/images/perusahaan/gajipokok.svg",
-    values: {
-      inHouse: "Yes ✅",
-      outsourcing: "Yes ✅",
-      kemitraan: "Prorate Base On Needs",
-    },
-  },
-  {
-    name: "BPJS Kesehatan",
-    icon: "/images/perusahaan/bpjskes.svg",
-    values: {
-      inHouse: "Yes ✅",
-      outsourcing: "Yes ✅",
-      kemitraan: "Self Funding",
-    },
-  },
-  {
-    name: "BPJS Ketenagakerjaan",
-    icon: "/images/perusahaan/bpjsketeneg.svg",
-    values: {
-      inHouse: "No ❌",
-      outsourcing: "Yes ✅",
-      kemitraan: "Tentative (Based on Partnership/mitra)",
-    },
-  },
-  {
-    name: "Management Fee",
-    icon: "/images/perusahaan/managementfee.svg",
-    values: {
-      inHouse: "No ❌",
-      outsourcing: "Yes ✅",
-      kemitraan: "Tentative (Based on Partnership/mitra)",
-    },
-  },
-  {
-    name: "PPN 11%",
-    icon: "/images/perusahaan/ppn11.svg",
-    values: {
-      inHouse: "No ❌",
-      outsourcing: "Yes ✅",
-      kemitraan: "dari platform fee",
-    },
-  },
-  {
-    name: "PPH Pasal 23",
-    icon: "/images/perusahaan/pphpasal.svg",
-    values: {
-      inHouse: "No ❌",
-      outsourcing: "Yes ✅",
-      kemitraan: "Yes ✅",
-    },
-  },
-  {
-    name: "THR",
-    icon: "/images/perusahaan/thr.svg",
-    values: {
-      inHouse: "Yes ✅",
-      outsourcing: "Yes ✅",
-      kemitraan: "Tentative (Based on Partnership/mitra)",
-    },
-  },
-  {
-    name: "Bonus tahunan",
-    icon: "/images/perusahaan/bonus.svg",
-    values: {
-      inHouse: "Yes ✅",
-      outsourcing: "No ❌",
-      kemitraan: "Tentative (Based on Partnership/mitra)",
-    },
-  },
-];
 
 const getCellClass = (key) => {
   return `py-3 px-4 ${key === "kemitraan" ? "bg-primary-darken" : "bg-primary"} text-white`;
@@ -242,7 +93,7 @@ const getCellClass = (key) => {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="benefit in benefits" :key="benefit.name">
+              <tr v-for="benefit in benefitsType" :key="benefit.name">
                 <td class="py-3 px-4 flex gap-4">
                   <nuxt-img :src="benefit.icon" width="30" height="30" />
                   <atoms-heading type="h4">{{ benefit.name }}</atoms-heading>
