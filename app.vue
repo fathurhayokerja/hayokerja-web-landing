@@ -14,7 +14,7 @@ import tailwindConfig from "./tailwind.config";
 
 const { theme: $theme } = resolveConfig(tailwindConfig as any);
 const $local = reactive({
-  isDarkMode: true,
+  isDarkMode: false,
 });
 const $themeOverrides = (_isDark = false): GlobalThemeOverrides => ({
   common: {

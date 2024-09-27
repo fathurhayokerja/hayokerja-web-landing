@@ -1,7 +1,8 @@
 <script setup>
-import { NModal } from "naive-ui";
+import { NModal, NCarousel, NCarouselItem } from "naive-ui";
 import { ref } from "vue";
-import useBreakpoint from "@/composable/useBreakpoint.ts";
+
+import useBreakpoint from "~/composable/useBreakpoint.ts";
 
 const items = ref([
   {
@@ -70,18 +71,33 @@ const items = ref([
   },
 ]);
 
-const showModal = ref(false);
-const activeItem = ref(null);
-const breakpoint = useBreakpoint();
+const breakpoints = useBreakpoint();
 
-const openModal = (item) => {
-  activeItem.value = item;
+const showModal = ref(false);
+const activeIndex = ref(0);
+const carouselRef = ref(null);
+
+const openModal = (index) => {
+  activeIndex.value = index;
   showModal.value = true;
 };
 
 const closeModal = () => {
   showModal.value = false;
-  activeItem.value = null;
+};
+
+const nextSlide = () => {
+  if (carouselRef.value && activeIndex.value < items.value.length - 1) {
+    carouselRef.value.next();
+    activeIndex.value++;
+  }
+};
+
+const prevSlide = () => {
+  if (carouselRef.value && activeIndex.value > 0) {
+    carouselRef.value.prev();
+    activeIndex.value--;
+  }
 };
 </script>
 
@@ -94,8 +110,6 @@ const closeModal = () => {
         v-for="(item, index) in items"
         :key="index"
         class="flex flex-col items-center space-y-32"
-        :data-aos="'fade-up'"
-        :data-aos-delay="index * 100"
       >
         <div
           :class="[
@@ -107,7 +121,7 @@ const closeModal = () => {
         </div>
 
         <div
-          @click="openModal(item)"
+          @click="openModal(index)"
           :class="[
             'w-full rounded-xl p-4 mt-8 space-y-24 flex flex-col items-center justify-center relative cursor-pointer',
             item.bgColor,
@@ -122,7 +136,7 @@ const closeModal = () => {
             height="188"
             class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           />
-          <h2 class="text-2xl font-bold text-white">
+          <h2 class="text-2xl font-bold text-white cursor-pointer">
             {{ item.title }}
           </h2>
         </div>
@@ -136,55 +150,81 @@ const closeModal = () => {
       @close="closeModal"
     >
       <template #header>
-        <div v-if="activeItem">
+        <div v-if="activeIndex">
           <atoms-heading
-            :type="breakpoint.mdAndDown ? 'h6' : 'h2'"
-            class="text-center uppercase"
+            :type="breakpoints.mdAndDown ? 'h6' : 'h2'"
+            class="text-center uppercase dark:text-white"
             >Proses Perekrutan</atoms-heading
           >
         </div>
       </template>
 
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10"
-        v-if="activeItem"
-      >
-        <div class="flex items-center justify-center">
-          <nuxt-img
-            preload
-            loading="lazy"
-            :src="activeItem.imgSrc"
-            class="w-[70%] md:w-full"
-          />
-        </div>
-        <div class="flex flex-col bg-secondary-darken p-6 gap-6 rounded-2xl">
-          <div
-            class="rounded-full w-20 h-20 flex items-center justify-center bg-white"
-          >
-            <span class="text-[#9397AD] text-4xl font-bold">{{
-              activeItem.number
-            }}</span>
-          </div>
+      <div class="relative">
+        <atoms-icon
+          @click="prevSlide"
+          name="arrow-left"
+          size="25"
+          class="absolute z-20 top-1/2 transform -translate-y-1/2 text-gray-200 bg-gray-400 rounded-full px-2 py-4"
+        />
 
-          <atoms-heading type="h3" class="text-white">
-            {{ activeItem.title }}
-          </atoms-heading>
+        <n-carousel
+          ref="carouselRef"
+          :show-arrow="false"
+          :show-dots="false"
+          class="mt-10"
+        >
+          <n-carousel-item v-for="(item, index) in items" :key="index">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div class="flex items-center justify-center">
+                <nuxt-img
+                  preload
+                  loading="lazy"
+                  :src="item.imgSrc"
+                  class="w-[70%] md:w-full"
+                />
+              </div>
+              <div
+                class="flex flex-col bg-secondary-darken p-6 gap-6 rounded-2xl"
+              >
+                <div
+                  class="rounded-full w-20 h-20 flex items-center justify-center bg-white"
+                >
+                  <span class="text-[#9397AD] text-4xl font-bold">{{
+                    item.number
+                  }}</span>
+                </div>
 
-          <p class="text-xl text-white font-light">
-            {{ activeItem.modalContent }}
-          </p>
+                <atoms-heading type="h3" class="text-white">
+                  {{ item.title }}
+                </atoms-heading>
 
-          <ul class="list-disc text-xl p-4">
-            <li
-              v-for="(listItem, idx) in activeItem.listItems"
-              :key="idx"
-              class="text-white"
-            >
-              {{ listItem }}
-            </li>
-          </ul>
-        </div>
+                <p class="text-xl text-white font-light">
+                  {{ item.modalContent }}
+                </p>
+
+                <ul class="list-disc text-xl p-4">
+                  <li
+                    v-for="(listItem, idx) in item.listItems"
+                    :key="idx"
+                    class="text-white"
+                  >
+                    {{ listItem }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </n-carousel-item>
+        </n-carousel>
+
+        <atoms-icon
+          @click="nextSlide"
+          name="arrow-right"
+          size="25"
+          class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-200 bg-gray-400 rounded-full px-2 py-4"
+        />
       </div>
     </n-modal>
   </div>
 </template>
+
+<style scoped></style>
