@@ -115,7 +115,7 @@ local.data = data.value?.result;
           <n-card
             class="w-full md:w-[30%] bg-secondary md:rounded-tl-none md:rounded-bl-none"
           >
-            <div class="flex items-center justify-end gap-3">
+            <div class="flex justify-end gap-3">
               <svg
                 width="24"
                 height="24"
