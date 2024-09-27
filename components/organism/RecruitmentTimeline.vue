@@ -87,16 +87,14 @@ const closeModal = () => {
 };
 
 const nextSlide = () => {
-  if (carouselRef.value && activeIndex.value < items.value.length - 1) {
+  if (carouselRef.value) {
     carouselRef.value.next();
-    activeIndex.value++;
   }
 };
 
 const prevSlide = () => {
-  if (carouselRef.value && activeIndex.value > 0) {
+  if (carouselRef.value) {
     carouselRef.value.prev();
-    activeIndex.value--;
   }
 };
 </script>
