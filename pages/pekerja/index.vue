@@ -1,5 +1,5 @@
 <script setup>
-import { NButton, NCard, NDivider } from "naive-ui";
+import { NButton, NCard, NDivider, NDrawer } from "naive-ui";
 import { ref, reactive } from "vue";
 
 import moment from "moment/min/moment-with-locales";
@@ -75,6 +75,8 @@ const items = ref([
     title: "Bekerja",
   },
 ]);
+const showDrawer = ref(false);
+const selectedVacancySlug = ref("");
 
 function removeHTMLEntities(text) {
   if (typeof document !== "undefined") {
@@ -89,36 +91,46 @@ const { data, status, error, refresh, clear } = await useAsyncData(
   "lowongan",
   async () => {
     local.isLoading = true;
-    const response = await $fetch(`${process.env.DATABASE_URL}/Vacancies/get`, {
-      params: {
-        jsonQuery: JSON.stringify({
-          pipeline: [
-            {
-              $lookup: {
-                from: "Clients",
-                localField: "clientId",
-                foreignField: "_id",
-                as: "clientData",
+    const response = await $fetch(
+      `${useRuntimeConfig().public.dbUrl}/Vacancies/get`,
+      {
+        params: {
+          jsonQuery: JSON.stringify({
+            pipeline: [
+              {
+                $lookup: {
+                  from: "Clients",
+                  localField: "clientId",
+                  foreignField: "_id",
+                  as: "clientData",
+                },
               },
-            },
-            {
-              $match: {
-                status: "Published",
+              {
+                $match: {
+                  status: "Published",
+                },
               },
-            },
-            {
-              $sort: { _updatedDate: -1 },
-            },
-          ],
-        }),
-        limit: 6,
+              {
+                $sort: { _updatedDate: -1 },
+              },
+            ],
+          }),
+          limit: 6,
+        },
       },
-    });
+    );
     return response;
   },
 );
 
+const openDrawer = (vacancy) => {
+  selectedVacancySlug.value = vacancy.slug;
+  showDrawer.value = true;
+};
+
 local.result = data.value?.result;
+
+console.log("result", local.result);
 </script>
 <template>
   <div>
@@ -434,7 +446,9 @@ local.result = data.value?.result;
             </div>
 
             <div class="flex justify-end mt-3">
-              <n-button type="success">Lihat Selengkapnya</n-button>
+              <n-button @click="openDrawer(vacancylist)" type="success"
+                >Lihat Selengkapnya</n-button
+              >
             </div>
           </n-card>
         </div>
@@ -470,6 +484,11 @@ local.result = data.value?.result;
         </div>
       </atoms-container>
     </section>
+
+    <!--    <organism-vacancy-detail-->
+    <!--      v-model:show="showDrawer"-->
+    <!--      :vacancy-slug="selectedVacancySlug"-->
+    <!--    />-->
   </div>
 </template>
 

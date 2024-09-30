@@ -48,7 +48,7 @@ const toggleAccordion = (index) => {
 };
 
 const { data, pending } = await useAsyncData("faq", async () => {
-  const response = await $fetch(`${process.env.DATABASE_URL}/FAQ/get`, {
+  const response = await $fetch(`${useRuntimeConfig().public.dbUrl}/FAQ/get`, {
     params: {
       jsonQuery: JSON.stringify({
         title: {

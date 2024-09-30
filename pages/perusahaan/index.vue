@@ -83,7 +83,7 @@ const getCellClass = (key) => {
       </atoms-container>
     </section>
 
-    <section id="sub-hero" class="my-36 container mx-auto px-4">
+    <section id="sub-hero" class="my-36">
       <atoms-container>
         <div class="flex items-center justify-center mb-16">
           <n-card
@@ -169,7 +169,7 @@ const getCellClass = (key) => {
             <nuxt-img
               preload
               loading="lazy"
-              src="/images/design-mobile-phone-1.svg"
+              src="/images/design-mobile-phone-1.png"
               quality="80"
               width="355"
               height="679"
@@ -267,7 +267,7 @@ const getCellClass = (key) => {
           class="w-full md:w-1/2 relative"
         >
           <nuxt-img
-            class="w-full max-w-[850px] mx-auto"
+            class="w-full max-w-[850px]"
             preload
             loading="lazy"
             src="/images/vector-body-content.svg"
@@ -325,7 +325,7 @@ const getCellClass = (key) => {
           class="w-full md:w-1/2 relative"
         >
           <nuxt-img
-            class="w-full max-w-[850px] mx-auto"
+            class="w-full max-w-[850px]"
             preload
             loading="lazy"
             src="/images/vector-body-content2.svg"
@@ -344,53 +344,60 @@ const getCellClass = (key) => {
       <div
         data-aos="fade-up"
         data-aos-duration="1000"
-        class="container mx-auto px-4 my-8 md:my-16 pt-16 md:pt-36"
+        class="my-8 md:my-16 pt-16 md:pt-36"
       >
-        <div class="relative">
-          <nuxt-img
-            class="w-full hidden md:block"
-            preload
-            loading="lazy"
-            src="/images/perusahaan/rectangle.svg"
-          />
+        <atoms-container
+          ><div class="relative">
+            <nuxt-img
+              class="w-full hidden md:block"
+              preload
+              loading="lazy"
+              src="/images/perusahaan/rectangle.svg"
+            />
 
-          <div class="md:absolute bottom-0 z-50 w-full px-4 md:px-12">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-              <nuxt-img
-                class="h-auto md:h-[800px] max-w-full mb-8 md:mb-0"
-                preload
-                loading="lazy"
-                src="/images/perusahaan/orang.svg"
-              />
-
+            <div class="md:absolute bottom-0 z-50 w-full px-4 md:px-12">
               <div
-                class="flex flex-col items-center justify-center space-y-4 md:space-y-8 mt-8 md:mt-48"
+                class="flex flex-col md:flex-row items-center justify-between"
               >
-                <p
-                  class="text-3xl md:text-5xl font-extrabold text-center md:text-white"
-                >
-                  Penawaran Kami
-                </p>
+                <nuxt-img
+                  class="h-auto md:h-[800px] max-w-full mb-8 md:mb-0"
+                  preload
+                  loading="lazy"
+                  src="/images/perusahaan/orang.svg"
+                />
 
-                <ul
-                  class="text-lg md:text-2xl font-bold md:text-white leading-snug list-none pl-0"
+                <div
+                  class="flex flex-col items-center justify-center space-y-4 md:space-y-8 mt-8 md:mt-48"
                 >
-                  <li class="mb-2">> Rekrutment pekerja harian lepas.</li>
-                  <li class="mb-2">> Pengelolaan SDM pekerja harian lepas.</li>
-                  <li class="mb-2">> Supply Talent Pool SDM.</li>
-                  <li class="mb-2">
-                    > Dashboard monitoring absensi dan hasil laporan dalam
-                    bentuk ms. Excel.
-                  </li>
-                  <li class="mb-2">
-                    > Aplikasi Absensi geotagging, geofencing secara real time.
-                  </li>
-                  <li>> Unlimited lokasi & no Hidden Cost.</li>
-                </ul>
+                  <p
+                    class="text-3xl md:text-5xl font-extrabold text-center md:text-white"
+                  >
+                    Penawaran Kami
+                  </p>
+
+                  <ul
+                    class="text-lg md:text-2xl font-bold md:text-white leading-snug list-none pl-0"
+                  >
+                    <li class="mb-2">> Rekrutment pekerja harian lepas.</li>
+                    <li class="mb-2">
+                      > Pengelolaan SDM pekerja harian lepas.
+                    </li>
+                    <li class="mb-2">> Supply Talent Pool SDM.</li>
+                    <li class="mb-2">
+                      > Dashboard monitoring absensi dan hasil laporan dalam
+                      bentuk ms. Excel.
+                    </li>
+                    <li class="mb-2">
+                      > Aplikasi Absensi geotagging, geofencing secara real
+                      time.
+                    </li>
+                    <li>> Unlimited lokasi & no Hidden Cost.</li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </div></atoms-container
+        >
       </div>
     </section>
 

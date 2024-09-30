@@ -81,7 +81,7 @@ onMounted(() => {
             <nuxt-img
               preload
               loading="lazy"
-              src="/images/banner.svg"
+              src="/images/banner.png"
               quality="80"
               width="746"
               height="560"
@@ -174,7 +174,7 @@ onMounted(() => {
             <nuxt-img
               preload
               loading="lazy"
-              src="/images/design-mobile-phone-1.svg"
+              src="/images/design-mobile-phone-1.png"
               quality="80"
               width="355"
               height="679"
@@ -467,7 +467,7 @@ onMounted(() => {
           Industri dan Pekerjaan yang kami salurkan
         </p>
 
-        <div class="border mt-5 w-[198px] mx-auto" />
+        <div class="border mt-5 w-[198px]" />
 
         <div
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-10 gap-4"
