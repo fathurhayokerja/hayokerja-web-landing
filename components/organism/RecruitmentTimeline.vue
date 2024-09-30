@@ -148,9 +148,9 @@ const prevSlide = () => {
       @close="closeModal"
     >
       <template #header>
-        <div v-if="activeIndex">
+        <div>
           <atoms-heading
-            :type="breakpoints.mdAndDown ? 'h6' : 'h2'"
+            :type="breakpoints.mdAndDown ? 'h6' : 'h3'"
             class="text-center uppercase dark:text-white"
             >Proses Perekrutan</atoms-heading
           >
