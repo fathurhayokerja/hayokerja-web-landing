@@ -3,10 +3,35 @@ import { NButton, NCard, NDivider, useLoadingBar } from "naive-ui";
 
 import { ref, reactive, watch } from "vue";
 
+const $title = ref("Informasi Penting");
+const $description = ref(
+  "Cari dan dapatkan informasi terkait penggunaan aplikasi hayokerja",
+);
+const $image = ref("https://www.hayokerja.com/logo.png");
+
 definePageMeta({
   label: "Informasi",
   order: 5,
   class: "!ring-0 !bg-opacity-0 !bg-transparent",
+  title: "Berita",
+});
+
+useSeoMeta({
+  title: () => $title.value,
+  description: () => $description.value,
+  ogTitle: () => $title.value,
+  ogDescription: () => $description.value,
+  ogImage: () => $image.value,
+  ogImageAlt: () => $title.value,
+  ogImageSecureUrl: () => $image.value,
+  ogImageUrl: () => $image.value,
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: () => $title.value,
+  twitterDescription: () => $description.value,
+  twitterImage: () => $image.value,
+  twitterImageAlt: () => $title.value,
+  robots: "index, follow",
 });
 
 const local = reactive({

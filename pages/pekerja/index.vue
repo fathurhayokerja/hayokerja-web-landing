@@ -5,21 +5,41 @@ import { ref, reactive } from "vue";
 import moment from "moment/min/moment-with-locales";
 moment.locale("id");
 
+const $title = ref("Pencari Kerja");
+const $description = ref(
+  "HayoKerja adalah biro tenaga kerja. Kami melakukan penyaringan profesional bagi calon tenaga kerja untuk di salurkan ke berbagai perusahaan terpilih. HayoKerja berbeda dengan jobportal, kami tidak menjual paket iklan untuk pasang lowongan kerja, kami langsung mencarikan kandidat pekerjanya.",
+);
+const $image = ref("https://www.hayokerja.com/pekerja/mockup.png");
+
 definePageMeta({
   order: 2,
   label: "Pekerja",
   class: "!ring-0 !bg-opacity-0 !bg-transparent",
+  title: "Pencari Kerja",
+});
+
+useSeoMeta({
+  title: () => $title.value,
+  description: () => $description.value,
+  ogTitle: () => $title.value,
+  ogDescription: () => $description.value,
+  ogImage: () => $image.value,
+  ogImageAlt: () => $title.value,
+  ogImageSecureUrl: () => $image.value,
+  ogImageUrl: () => $image.value,
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: () => $title.value,
+  twitterDescription: () => $description.value,
+  twitterImage: () => $image.value,
+  twitterImageAlt: () => $title.value,
+  robots: "index, follow",
 });
 
 const local = reactive({
-  term: "",
-  province: "",
-  city: "",
   page: 1,
   limit: 5,
-  total: 0,
   result: null,
-  isSortAscending: null,
   clientData: null,
 });
 
@@ -318,7 +338,7 @@ local.result = data.value?.result;
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6"
         >
           <n-card
-            class="rounded-lg shadow-lg"
+            class="rounded-lg shadow-lg hover:shadow-2xl"
             v-for="(vacancylist, index) in local.result"
             :key="vacancylist._id"
             :data-aos="'fade-up'"

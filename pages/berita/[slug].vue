@@ -6,6 +6,13 @@ import { reactive } from "vue";
 import moment from "moment/min/moment-with-locales";
 moment.locale("id");
 
+definePageMeta({
+  hidden: true,
+  label: "Detail Berita",
+  title: "Detail Berita",
+  headerClass: "bg-white-smoke dark:bg-black !ring-0",
+});
+
 const local = reactive({
   data: null,
 });
@@ -83,6 +90,29 @@ local.data = data.value?.result;
 
 <template>
   <div>
+    <Head>
+      <Title>{{ data?.result?.title }}</Title>
+      <Meta name="name" :content="data?.result?.title" />
+      <Meta name="description" :content="data?.result?.excerpt" />
+      <Meta name="description" :content="data?.result?.excerpt" />
+
+      <Meta name="og:type" content="article" />
+      <Meta name="og:site_name" content="https://www.hayokerja.com/" />
+      <Meta name="og:url" :content="route.fullPath" />
+      <Meta name="og:title" :content="data?.result?.title" />
+      <Meta name="og:description" :content="data?.result?.excerpt" />
+      <Meta name="og:image" :content="data?.result?.picture" />
+      <Meta name="og:image:secure_url" :content="data?.result?.picture" />
+      <Meta name="og:image:alt" :content="data?.result?.slug" />
+      <Meta name="twitter:site" content="https://www.hayokerja.com/" />
+      <Meta name="twitter:url" :content="route.fullPath" />
+      <Meta name="twitter:title" :content="data?.result?.title" />
+      <Meta name="twitter:description" :content="data?.result?.excerpt" />
+      <Meta name="twitter:image" :content="data?.result?.picture" />
+      <Meta name="twitter:image:alt" :content="data?.result?.slug" />
+      <Meta name="twitter:card" content="summary_large_image" />
+    </Head>
+
     <section id="image" class="relative z-20">
       <atoms-container>
         <nuxt-img

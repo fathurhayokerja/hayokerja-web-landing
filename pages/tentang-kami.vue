@@ -2,10 +2,35 @@
 import { NButton, NDivider } from "naive-ui";
 import { Player, Youtube } from "@vime/vue-next";
 
+const $title = ref("Tentang Kami");
+const $description = ref(
+  "Hadir sebagai biro tenaga kerja dengan memberikan solusi terbaik untuk penyediaan mitra Pekerja Harian Lepas (PHL) dan Alih Daya bagi banyak perusahaan di Indonesia.",
+);
+const $image = ref("https://www.hayokerja.com/tentang/all.png");
+
 definePageMeta({
   label: "Tentang Kami",
   order: 3,
   class: "!ring-0 !bg-opacity-0 !bg-transparent",
+  title: "Tentang Kami",
+});
+
+useSeoMeta({
+  title: () => $title.value,
+  description: () => $description.value,
+  ogTitle: () => $title.value,
+  ogDescription: () => $description.value,
+  ogImage: () => $image.value,
+  ogImageAlt: () => $title.value,
+  ogImageSecureUrl: () => $image.value,
+  ogImageUrl: () => $image.value,
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: () => $title.value,
+  twitterDescription: () => $description.value,
+  twitterImage: () => $image.value,
+  twitterImageAlt: () => $title.value,
+  robots: "index, follow",
 });
 
 const mission = [
@@ -32,6 +57,7 @@ const mission = [
   },
 ];
 </script>
+
 <template>
   <div>
     <section id="hero" class="relative mt-7">

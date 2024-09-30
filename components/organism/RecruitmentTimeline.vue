@@ -1,5 +1,5 @@
 <script setup>
-import { NModal, NCarousel, NCarouselItem } from "naive-ui";
+import { NModal, NCarousel, NCarouselItem, NCard } from "naive-ui";
 import { ref } from "vue";
 
 import useBreakpoint from "~/composable/useBreakpoint.ts";
@@ -7,7 +7,8 @@ import useBreakpoint from "~/composable/useBreakpoint.ts";
 const items = ref([
   {
     number: 1,
-    bgColor: "bg-secondary-darken hover:bg-secondary",
+    bgColor:
+      "bg-secondary-darken hover:bg-secondary hover:scale-105 duration-300",
     imgSrc: "/images/pekerja/register.svg",
     title: "Daftar",
     modalContent: "Cari pekerja atau pekerjaan lebih mudah & efektif.",
@@ -19,7 +20,7 @@ const items = ref([
   },
   {
     number: 2,
-    bgColor: "bg-primary-darken hover:bg-primary",
+    bgColor: "bg-primary-darken hover:bg-primary hover:scale-105 duration-300",
     imgSrc: "/images/pekerja/interview-1.svg",
     title: "Wawancara",
     modalContent:
@@ -32,7 +33,7 @@ const items = ref([
   },
   {
     number: 3,
-    bgColor: "bg-primary-darken hover:bg-primary",
+    bgColor: "bg-primary-darken hover:bg-primary hover:scale-105 duration-300",
     imgSrc: "/images/pekerja/check-1.svg",
     title: "Psikotes",
     modalContent:
@@ -45,7 +46,7 @@ const items = ref([
   },
   {
     number: 4,
-    bgColor: "bg-primary-darken hover:bg-primary",
+    bgColor: "bg-primary-darken hover:bg-primary hover:scale-105 duration-300",
     imgSrc: "/images/pekerja/meditation-1.svg",
     title: "Diterima",
     modalContent:
@@ -58,7 +59,7 @@ const items = ref([
   },
   {
     number: 5,
-    bgColor: "bg-primary-darken hover:bg-primary",
+    bgColor: "bg-primary-darken hover:bg-primary hover:scale-105 duration-300",
     imgSrc: "/images/pekerja/works-1.svg",
     title: "Bekerja",
     modalContent:
@@ -106,6 +107,8 @@ const prevSlide = () => {
     >
       <div
         v-for="(item, index) in items"
+        :data-aos="'fade-up'"
+        :data-aos-delay="index * 100"
         :key="index"
         class="flex flex-col items-center space-y-32"
       >

@@ -4,10 +4,35 @@ import { NButton, NCard, NDivider } from "naive-ui";
 import useBreakpoint from "@/composable/useBreakpoint.ts";
 import benefitsType from "~/constant/benefits.type.js";
 
+const $title = ref("Perusahaan/Client");
+const $description = ref(
+  "Kami memudahkan administrasi, semua absensi pekerja dapat dengan mudah dilacak riwayatnya serta memantau serta mengatur kehadiran pekerja dengan Geotagging dan pengelompokan area kerja untuk perusahaan atau klien",
+);
+const $image = ref("https://www.hayokerja.com/perusahaan/invoice.png");
+
 definePageMeta({
   order: 1,
   label: "Perusahaan",
   class: "!ring-0 !bg-opacity-0 !bg-transparent",
+  title: "Perusahaan/Client",
+});
+
+useSeoMeta({
+  title: () => $title.value,
+  description: () => $description.value,
+  ogTitle: () => $title.value,
+  ogDescription: () => $description.value,
+  ogImage: () => $image.value,
+  ogImageAlt: () => $title.value,
+  ogImageSecureUrl: () => $image.value,
+  ogImageUrl: () => $image.value,
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: () => $title.value,
+  twitterDescription: () => $description.value,
+  twitterImage: () => $image.value,
+  twitterImageAlt: () => $title.value,
+  robots: "index, follow",
 });
 
 const breakpoints = useBreakpoint();
