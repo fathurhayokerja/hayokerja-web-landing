@@ -283,7 +283,7 @@ const getCellClass = (key) => {
         </div>
 
         <div
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-duration="1000"
           class="w-full md:w-1/2 space-y-6 text-center md:text-left px-4 md:px-20"
         >
@@ -320,7 +320,7 @@ const getCellClass = (key) => {
         </div>
 
         <div
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-duration="1000"
           class="w-full md:w-1/2 relative"
         >

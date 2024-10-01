@@ -249,7 +249,7 @@ console.log("result", local.result);
         </div>
 
         <div
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-duration="1000"
           class="w-full md:w-1/2 px-4 md:px-12 space-y-4 md:space-y-6"
         >
@@ -300,7 +300,7 @@ console.log("result", local.result);
         </div>
 
         <div
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-duration="1000"
           class="relative w-full md:w-1/2 mb-8 md:mb-0"
         >

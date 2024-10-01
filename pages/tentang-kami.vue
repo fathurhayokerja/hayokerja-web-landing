@@ -128,7 +128,7 @@ const mission = [
 
           <div>
             <nuxt-img
-              data-aos="fade-left"
+              data-aos="fade-up"
               data-aos-duration="1000"
               class="hidden md:block w-[40%] absolute right-0"
               preload

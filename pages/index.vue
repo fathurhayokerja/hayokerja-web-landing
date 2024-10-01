@@ -260,8 +260,9 @@ onMounted(() => {
             height="572"
           />
         </div>
+
         <div
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-duration="1000"
           class="w-full p-10 space-y-6 my-auto"
         >
@@ -325,7 +326,7 @@ onMounted(() => {
         </div>
 
         <div
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-duration="1000"
           class="w-full bg-primary-secondary-darken p-10 flex justify-start"
         >
@@ -356,8 +357,8 @@ onMounted(() => {
         </div>
 
         <div
+          data-aos="fade-up"
           data-aos-duration="1000"
-          data-aos="fade-left"
           class="w-full p-10 space-y-6 my-auto"
         >
           <nuxt-img
@@ -403,8 +404,8 @@ onMounted(() => {
         </div>
 
         <div
+          data-aos="fade-up"
           data-aos-duration="1000"
-          data-aos="fade-left"
           class="w-full my-auto px-4 space-y-10"
         >
           <div
